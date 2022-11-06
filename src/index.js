@@ -35,7 +35,7 @@ function get_theme() {
         box-shadow: var(--shadow-xy) var(--shadow-blur) hsla(var(--shadow-color), var(--shadow-opacity));
     }
     input::-webkit-outer-spin-button,
-    input::webkit-inner-spin-button{
+    input::-webkit-inner-spin-button{
         -webkit-appearance: none;
     }
     
