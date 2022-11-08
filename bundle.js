@@ -9,6 +9,35 @@ document.body.append(inputInteger)
 },{"..":2}],2:[function(require,module,exports){
 module.exports = input_interger
 
+
+function input_interger() {
+
+    const el = document.createElement('div')
+    const shadow = el.attachShadow({mode : 'closed'})
+
+    const input = document.createElement('input')
+    input.type = 'number'
+    input.min = 0
+    input.max = 50
+    input.onkeyup = (e) => handle_onkeyup(e, input)
+
+
+    const style = document.createElement('style')
+    style.textContent = get_theme()
+
+    shadow.append(input, style)
+    return el
+
+}
+
+function handle_onkeyup(e, input){
+
+    const val = Number(e.target.value)
+    // console.log(val)
+    if (val > input.max) input.value = 50
+    else if (val < input.min) input.value = 0
+}
+
 function get_theme() {
     return`
     :host{
@@ -22,6 +51,7 @@ function get_theme() {
         --shadow-color: var(--color-white);
         --shadow-opacity: 0;
         --shadow-opacity-focus: 0.65;
+        --background-shadow: hsla(219, 92%, 99%, 1);
     }
     input{
         text-align: left;
@@ -50,33 +80,6 @@ function get_theme() {
     
     `
 
-
-}
-
-function handle_onkeyup(e, input){
-
-    const val = Number(e.target.value)
-    if (val > input.max) input.value = 50
-    else if (val < input.min) input.value = 0
-}
-
-function input_interger() {
-
-    const el = document.createElement('div')
-    const shadow = el.attachShadow({mode : 'closed'})
-
-    const input = document.createElement('input')
-    input.type = 'number'
-    input.min = 0
-    input.max = 50
-    input.onkeyup = (e) => handle_onkeyup(e, input)
-
-
-    const style = document.createElement('style')
-    style.textContent = get_theme()
-
-    shadow.append(input, style)
-    return el
 
 }
 },{}]},{},[1]);
