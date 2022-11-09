@@ -1,5 +1,5 @@
 {
-  "name": "input-integer-ui",
+  "name": "input-integer_01",
   "version": "0.0.1",
   "description": "input integer ui component",
   "main": "src/index.js",
