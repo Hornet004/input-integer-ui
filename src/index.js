@@ -1,16 +1,19 @@
 module.exports = input_interger
 
 
-function input_interger() {
+function input_interger(opts) {
+
+    const {min, max} = opts
 
     const el = document.createElement('div')
     const shadow = el.attachShadow({mode : 'closed'})
 
     const input = document.createElement('input')
     input.type = 'number'
-    input.min = 0
-    input.max = 50
-    input.onkeyup = (e) => handle_onkeyup(e, input)
+    input.min = min
+    input.max = max
+    input.onkeyup = (e) => handle_onkeyup(e, input, min, max)
+    input.onmouseleave = (e) => handle_onmouseleave(e, input, min, max)
 
 
     const style = document.createElement('style')
@@ -21,12 +24,21 @@ function input_interger() {
 
 }
 
-function handle_onkeyup(e, input){
+function handle_onkeyup(e, input, min, max){
 
     const val = Number(e.target.value)
-    // console.log(val)
-    if (val > input.max) input.value = 50
-    else if (val < input.min) input.value = 0
+    // console.log(val) 
+    const val_len = val.toString().length
+    const min_len = min.toString().length
+    
+
+    if (val > max) input.value = max
+    else if (val_len === min_len && val < min) input.value = min
+}
+function handle_onmouseleave(e, input, min){
+    
+    const val = Number(e.target.value)
+    if (val < min) input.value = ''
 }
 
 function get_theme() {

@@ -1,8 +1,11 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const input_interger = require('..')
 
-const input1 = input_interger()
-const input2 = input_interger()
+const opts1 = {min: 1, max: 150}
+const opts2 = {min: 1872, max: 2022}
+
+const input1 = input_interger(opts1)
+const input2 = input_interger(opts2)
 
 const title = `My demo form`
 const subTitle = `Please feel out the form` 
@@ -28,16 +31,19 @@ document.body.append(page)
 module.exports = input_interger
 
 
-function input_interger() {
+function input_interger(opts) {
+
+    const {min, max} = opts
 
     const el = document.createElement('div')
     const shadow = el.attachShadow({mode : 'closed'})
 
     const input = document.createElement('input')
     input.type = 'number'
-    input.min = 0
-    input.max = 50
-    input.onkeyup = (e) => handle_onkeyup(e, input)
+    input.min = min
+    input.max = max
+    input.onkeyup = (e) => handle_onkeyup(e, input, min, max)
+    input.onmouseleave = (e) => handle_onmouseleave(e, input, min, max)
 
 
     const style = document.createElement('style')
@@ -48,12 +54,21 @@ function input_interger() {
 
 }
 
-function handle_onkeyup(e, input){
+function handle_onkeyup(e, input, min, max){
 
     const val = Number(e.target.value)
-    // console.log(val)
-    if (val > input.max) input.value = 50
-    else if (val < input.min) input.value = 0
+    // console.log(val) 
+    const val_len = val.toString().length
+    const min_len = min.toString().length
+    
+
+    if (val > max) input.value = max
+    else if (val_len === min_len && val < min) input.value = min
+}
+function handle_onmouseleave(e, input, min){
+    
+    const val = Number(e.target.value)
+    if (val < min) input.value = ''
 }
 
 function get_theme() {

@@ -1,7 +1,10 @@
 const input_interger = require('..')
 
-const input1 = input_interger()
-const input2 = input_interger()
+const opts1 = {min: 1, max: 150}
+const opts2 = {min: 1872, max: 2022}
+
+const input1 = input_interger(opts1)
+const input2 = input_interger(opts2)
 
 const title = `My demo form`
 const subTitle = `Please feel out the form` 
