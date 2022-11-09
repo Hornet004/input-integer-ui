@@ -1,4 +1,4 @@
-const input_interger = require('..')
+const input_interger = require('input-integer_01')
 
 const opts1 = {min: 1, max: 150}
 const opts2 = {min: 1872, max: 2022}

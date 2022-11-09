@@ -3,7 +3,7 @@ module.exports = input_interger
 
 function input_interger(opts) {
 
-    const {min, max} = opts
+    const {min = 0, max = 1000} = opts
 
     const el = document.createElement('div')
     const shadow = el.attachShadow({mode : 'closed'})
