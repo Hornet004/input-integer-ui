@@ -14,6 +14,7 @@ const page = document.createElement('div')
 page.innerHTML =`
 <h1> ${title}</h1>
 <h2> ${subTitle}</h1>
+<h3> Enter year Age</h3>
 <x></x>
 <h3> Enter year of birth</h3>
 <y></y>
