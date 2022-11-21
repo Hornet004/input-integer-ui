@@ -1,9 +1,19 @@
 module.exports = input_interger
 
+var id = 0
 
-function input_interger(opts) {
+function input_interger(opts, protocol) {
 
     const {min = 0, max = 1000} = opts
+    const name = `input-integer-${id++}`
+
+    const notify = protocol({from: name}, listen)
+    function listen(message){
+        const {type, data} = message
+        if (type === 'update') {
+          input.value = data
+        }
+    }
 
     const el = document.createElement('div')
     const shadow = el.attachShadow({mode : 'closed'})
@@ -22,24 +32,31 @@ function input_interger(opts) {
     shadow.append(input, style)
     return el
 
-}
+    function handle_onkeyup(e, input, min, max){
 
-function handle_onkeyup(e, input, min, max){
-
-    const val = Number(e.target.value)
-    // console.log(val) 
-    const val_len = val.toString().length
-    const min_len = min.toString().length
+        const val = Number(e.target.value)
+        // console.log(val) 
+        const val_len = val.toString().length
+        const min_len = min.toString().length
+        
     
+        
+        if (val_len === min_len && val < min) input.value = min
+        else if (val > max) input.value = max
+        
+        // console.log(val)
+        notify({from: name, type: 'update', data: val})
+    }
+    function handle_onmouseleave(e, input, min){
+        
+        const val = Number(e.target.value)
+        if (val < min) input.value = ''
+        
+    }
 
-    if (val > max) input.value = max
-    else if (val_len === min_len && val < min) input.value = min
 }
-function handle_onmouseleave(e, input, min){
-    
-    const val = Number(e.target.value)
-    if (val < min) input.value = ''
-}
+
+
 
 function get_theme() {
     return`
